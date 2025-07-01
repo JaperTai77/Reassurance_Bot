@@ -1,0 +1,14 @@
+[project]
+name = "reassurance-bot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.115.14",
+    "langchain-mongodb>=0.6.2",
+    "langchain-openai>=0.3.27",
+    "openai>=1.93.0",
+    "pymongo>=4.13.2",
+    "python-dotenv>=1.1.1",
+]
