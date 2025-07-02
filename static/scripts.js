@@ -37,10 +37,28 @@ document.addEventListener('DOMContentLoaded', () => {
     if (messageText !== '') {
       appendMessage(messageText, 'user');
       chatInput.value = '';
-      // Simulate bot response
-      setTimeout(() => {
-        appendMessage("This is a bot response to: " + messageText, 'bot');
-      }, 1000);
+      sendButton.disabled = true;
+      fetch(`http://localhost:8000/chat/gettopresponse?text=${encodeURIComponent(messageText)}`, {
+        method: 'GET',
+        headers: {
+          'accept': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        const revised = data?.messages?.["Revised Response"];
+        if (revised) {
+          appendMessage(revised, 'bot');
+        } else {
+          appendMessage("Bot response unavailable.", 'bot');
+        }
+      })
+      .catch(() => {
+        appendMessage("Error: Unable to reach chatbot API.", 'bot');
+      })
+      .finally(() => {
+        sendButton.disabled = false;
+      });
     }
   }
 
