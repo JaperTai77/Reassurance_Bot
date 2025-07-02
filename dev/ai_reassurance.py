@@ -21,7 +21,7 @@ def get_model():
     return client
 
 def get_completion(client, prompt):
-    completion = client.beta.chat.completions.parse(
+    completion = client.chat.completions.parse(
         model=os.getenv("OPENAI_MODEL", "gpt-4.1-mini"),
         messages=[
             {"role": "system", "content": "你會安撫你對象的情緒，並提供支持和鼓勵，並幽默且風趣的回應,回應盡量有押韻或諧音。"},
@@ -35,7 +35,7 @@ def get_completion(client, prompt):
 if __name__ == "__main__":
     load_dotenv()
     client = get_model()
-    prompt = "我今天感覺很沮喪"
+    prompt = "我好像胖了"
     response = get_completion(client, prompt)
 
     message = response.choices[0].message

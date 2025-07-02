@@ -8,12 +8,11 @@ from app.core.config import Variable
 
 class MongoDBOperations:
     def __init__(self):
-        self.MONGODB_URI = Variable.MONGODB_URI
-        self.MONGODB_DB_NAME = Variable.MONGODB_DB_NAME
-        self.MONGODB_COLLECTION_NAME = Variable.MONGODB_COLLECTION_NAME
-        self.MONGO_ATLAS_SEARCH_INDEX = Variable.MONGO_ATLAS_SEARCH_INDEX
-        self.OPENAI_EMBEDDING_MODEL = Variable.OPENAI_EMBEDDING_MODEL
-        self.OPENAI_API_KEY = Variable.OPENAI_API_KEY
+        self.mongo_uri = Variable.MONGODB_URI
+        self.db_name = Variable.MONGODB_DB_NAME
+        self.collection_name = Variable.MONGODB_COLLECTION_NAME
+        self.index_name = Variable.MONGO_ATLAS_SEARCH_INDEX
+        self.embedding_model = Variable.OPENAI_EMBEDDING_MODEL
         self.client = MongoClient(self.mongo_uri, tlsCAFile=certifi.where())
         self.db = self.client[self.db_name]
         self.collection = self.db[self.collection_name]
@@ -48,13 +47,13 @@ class MongoDBOperations:
             relevance_score_fn="cosine"
         )
         if text != "" or metadata != "":
-            vector_store.add_texts(texts=text, metadatas=metadata)
-            return "Document added successfully!"
-        return "No data"
+            vector_store.add_texts(texts=[text], metadatas=[{"source":metadata}])
+            return f"'{text}' added to the vector store successfully!"
+        return "No data!"
 
     def get_all_texts(self) -> list:
         all_texts = []
-        collection_name = self.MONGODB_COLLECTION_NAME
+        collection_name = self.collection_name
         collection = self.db[collection_name]
         documents = collection.find()
         for doc in documents:

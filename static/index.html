@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chatbot & 語錄 Tabs</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="tab-container">
+    <div class="tabs">
+      <button class="tab-button active" id="chatbot-tab">Chatbot</button>
+      <button class="tab-button" id="quotes-tab">語錄</button>
+    </div>
+    <div class="tab-content" id="chatbot-content">
+      <div class="chat-window">
+        <div class="chat-messages" id="chat-messages">
+          <!-- Messages will be appended here by JavaScript -->
+        </div>
+        <div class="chat-input-area">
+          <input type="text" id="chat-input" class="chat-input" placeholder="Type your message...">
+          <button id="send-button" class="send-button">➤</button>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content" id="quotes-content" style="display:none;">
+      <h2>語錄</h2>
+    </div>
+  </div>
+  <script src="scripts.js"></script>
+</body>
+</html>
