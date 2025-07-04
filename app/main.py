@@ -4,6 +4,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 from app.api.v1.endpoints import vectorstore_operation
 from app.api.v1.endpoints import chat
+from app.core.config import Variable
 
 app = FastAPI(
     title="Reassurance Bot API",
@@ -24,7 +25,7 @@ app.include_router(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:9000"],
+    allow_origins=[Variable.FRONTEND_ORIGIN],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]

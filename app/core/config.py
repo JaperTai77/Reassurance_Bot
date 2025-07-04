@@ -13,4 +13,6 @@ class Settings:
     OPENAI_EMBEDDING_MODEL: str = os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-ada-002")
     OPENAI_CHAT_MODEL: str = os.getenv("OPENAI_CHAT_MODEL", "gpt-4.1-mini")
 
+    FRONTEND_ORIGIN: str = os.getenv("FRONTEND_ORIGIN", "*")
+
 Variable = Settings()

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chatbot & 語錄 Tabs</title>
+  <title>Chatbot & 語錄</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -25,8 +25,17 @@
     </div>
     <div class="tab-content" id="quotes-content" style="display:none;">
       <h2>語錄</h2>
+      <div class="quotes-search-area">
+        <input type="text" id="quotes-search-input" class="quotes-search-input" placeholder="搜尋語錄...">
+        <button id="quotes-search-button" class="quotes-button">搜尋</button>
+        <button id="quotes-getall-button" class="quotes-button">取得全部</button>
+      </div>
+      <div class="quotes-messages" id="quotes-messages">
+        <!-- Quote messages will be appended here by JavaScript -->
+      </div>
     </div>
   </div>
+  <script src="config.js"></script>
   <script src="scripts.js"></script>
 </body>
 </html>

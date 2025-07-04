@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const BACKEND_ORIGIN = window.BACKEND_ORIGIN;
   const chatbotTab = document.getElementById('chatbot-tab');
   const quotesTab = document.getElementById('quotes-tab');
   const chatbotContent = document.getElementById('chatbot-content');
@@ -38,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
       appendMessage(messageText, 'user');
       chatInput.value = '';
       sendButton.disabled = true;
-      fetch(`http://localhost:8000/chat/gettopresponse?text=${encodeURIComponent(messageText)}`, {
+      fetch(`${BACKEND_ORIGIN}/chat/gettopresponse?text=${encodeURIComponent(messageText)}`, {
         method: 'GET',
         headers: {
           'accept': 'application/json'
@@ -68,5 +69,92 @@ document.addEventListener('DOMContentLoaded', () => {
     messageElement.textContent = text;
     chatMessages.appendChild(messageElement);
     chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+  }
+
+  // Quotes functionality
+  const quotesSearchInput = document.getElementById('quotes-search-input');
+  const quotesSearchButton = document.getElementById('quotes-search-button');
+  const quotesGetAllButton = document.getElementById('quotes-getall-button');
+  const quotesMessages = document.getElementById('quotes-messages');
+
+  quotesSearchButton.addEventListener('click', searchQuotes);
+  quotesGetAllButton.addEventListener('click', getAllQuotes);
+  quotesSearchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      searchQuotes();
+    }
+  });
+
+  function searchQuotes() {
+    const searchText = quotesSearchInput.value.trim();
+    if (searchText !== '') {
+      quotesSearchButton.disabled = true;
+      fetch(`${BACKEND_ORIGIN}/vs/getsearchtexts?text=${encodeURIComponent(searchText)}&k=6`, {
+        method: 'GET',
+        headers: {
+          'accept': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data?.messages && Array.isArray(data.messages)) {
+          clearQuotesMessages();
+          data.messages.forEach(message => {
+            appendQuoteMessage(message);
+          });
+        } else {
+          clearQuotesMessages();
+          appendQuoteMessage("沒有找到相關語錄。");
+        }
+      })
+      .catch(() => {
+        clearQuotesMessages();
+        appendQuoteMessage("錯誤：無法連接到語錄搜尋 API。");
+      })
+      .finally(() => {
+        quotesSearchButton.disabled = false;
+      });
+    }
+  }
+
+  function getAllQuotes() {
+    quotesGetAllButton.disabled = true;
+    fetch(`${BACKEND_ORIGIN}/vs/getalltexts`, {
+      method: 'GET',
+      headers: {
+        'accept': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data?.messages && Array.isArray(data.messages)) {
+        clearQuotesMessages();
+        data.messages.forEach(message => {
+          appendQuoteMessage(message);
+        });
+      } else {
+        clearQuotesMessages();
+        appendQuoteMessage("無法取得語錄。");
+      }
+    })
+    .catch(() => {
+      clearQuotesMessages();
+      appendQuoteMessage("錯誤：無法連接到語錄 API。");
+    })
+    .finally(() => {
+      quotesGetAllButton.disabled = false;
+    });
+  }
+
+  function appendQuoteMessage(text) {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('quotes-message');
+    messageElement.textContent = text;
+    quotesMessages.appendChild(messageElement);
+    quotesMessages.scrollTop = quotesMessages.scrollHeight; // Scroll to bottom
+  }
+
+  function clearQuotesMessages() {
+    quotesMessages.innerHTML = '';
   }
 });
