@@ -7,7 +7,11 @@ Reassurance Bot is a web application designed to foster comfortable and encourag
 - **Chatbot Tab**: Engage in supportive, comforting conversations with an AI-powered chatbot.
 - **Phrase Tab**: Search and browse stored encouraging phrases.
 - **Separation of Backend and Frontend**: FastAPI backend (Python) and static frontend (HTML/JS/CSS).
----
+
+## Demo Deployment
+
+The app is deployed for demonstration at: [https://jasper177reassuranceweb-318ab640f7f9.herokuapp.com](https://jasper177reassuranceweb-318ab640f7f9.herokuapp.com)
+
 
 ## File Structure
 
@@ -44,8 +48,6 @@ Reassurance Bot is a web application designed to foster comfortable and encourag
 ├── .python-version
 └── README.md
 ```
-
----
 
 ## Getting Started
 
@@ -120,8 +122,6 @@ python3 -m http.server 9000
 
 The frontend will be available at: [http://localhost:9000](http://localhost:9000)
 
----
-
 ## API Endpoints
 
 ### Chat Endpoints (`/chat`)
@@ -154,15 +154,11 @@ The frontend will be available at: [http://localhost:9000](http://localhost:9000
     - `k` (integer, default: 5) — Number of top results to return.
   - **Description:** Searches for phrases/documents similar to the input text.
 
----
-
 ## Notes
 
 - **API Documentation**: Once the backend is running, interactive API docs are available at [http://localhost:8000/docs](http://localhost:8000/docs)
 - **Frontend Deployment**: The frontend is static and can be hosted on any web server. Remember to update `config.js` for the correct backend API URL.
 - **Docker**: The provided Docker setup only launches the backend API. You must serve the frontend separately.
-
----
 
 ## License
 
