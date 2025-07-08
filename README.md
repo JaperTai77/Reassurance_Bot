@@ -55,7 +55,19 @@ The app is deployed for demonstration at: [https://jasper177reassuranceweb-318ab
 
 The backend is a FastAPI application located in the `app/` directory.
 
-#### **Run with Python**
+#### **Set up Openai api and MongoDB vector store**
+
+1. Vector Store Setup in MongoDB
+
+- For setting up the vector store in MongoDB, please refer to the official MongoDB Atlas Vector Search quick start guide:  
+  https://www.mongodb.com/docs/atlas/atlas-vector-search/tutorials/vector-search-quick-start/
+
+2.  OpenAI API Key Setup
+
+- To set up your OpenAI API key for the application, follow the OpenAI platform quickstart guide for chat API mode:  
+https://platform.openai.com/docs/quickstart?api-mode=chat
+
+#### **Run with Python (Option 1)**
 
 1. Install dependencies (recommended: use a virtual environment):
 
@@ -80,7 +92,7 @@ The backend is a FastAPI application located in the `app/` directory.
     uvicorn app.main:app --host 0.0.0.0 --port 8000
     ```
 
-#### **Run with Docker**
+#### **Run with Docker (Option 2)**
 
 1. Copy the sample environment file and edit as needed:
 

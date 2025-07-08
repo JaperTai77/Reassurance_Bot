@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageText = chatInput.value.trim();
     if (messageText !== '') {
       appendMessage(messageText, 'user');
+      appendThinkingMessage();
       chatInput.value = '';
       sendButton.disabled = true;
       fetch(`${BACKEND_ORIGIN}/chat/gettopresponse?text=${encodeURIComponent(messageText)}`, {
@@ -47,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then(response => response.json())
       .then(data => {
+        removeThinkingMessage();
         const revised = data?.messages?.["Revised Response"];
         if (revised) {
           appendMessage(revised, 'bot');
@@ -55,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       })
       .catch(() => {
+        removeThinkingMessage();
         appendMessage("Error: Unable to reach chatbot API.", 'bot');
       })
       .finally(() => {
@@ -69,6 +72,24 @@ document.addEventListener('DOMContentLoaded', () => {
     messageElement.textContent = text;
     chatMessages.appendChild(messageElement);
     chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+  }
+
+  function appendThinkingMessage() {
+    // Only add if not already present
+    if (!chatMessages.querySelector('.message.thinking')) {
+      const thinkingElement = document.createElement('div');
+      thinkingElement.classList.add('message', 'bot', 'thinking');
+      thinkingElement.textContent = '...';
+      chatMessages.appendChild(thinkingElement);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+  }
+
+  function removeThinkingMessage() {
+    const thinkingElement = chatMessages.querySelector('.message.thinking');
+    if (thinkingElement) {
+      chatMessages.removeChild(thinkingElement);
+    }
   }
 
   // Quotes functionality
