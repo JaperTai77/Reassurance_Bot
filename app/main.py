@@ -73,6 +73,7 @@ def home():
             <h1>Service Status</h1>
             <p class="status">All systems operational</p>
             <p>Last checked: <span id="timestamp"></span></p>
+            <p><a href="/docs" style="color:#81D4FA;text-decoration:underline;">API Documentation</a></p>
         </div>
 
         <script>
