@@ -171,7 +171,3 @@ The frontend will be available at: [http://localhost:9000](http://localhost:9000
 - **API Documentation**: Once the backend is running, interactive API docs are available at [http://localhost:8000/docs](http://localhost:8000/docs)
 - **Frontend Deployment**: The frontend is static and can be hosted on any web server. Remember to update `config.js` for the correct backend API URL.
 - **Docker**: The provided Docker setup only launches the backend API. You must serve the frontend separately.
-
-## License
-
-[MIT](LICENSE) (or specify your license here)
